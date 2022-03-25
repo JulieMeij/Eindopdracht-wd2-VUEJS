@@ -10,8 +10,8 @@
         </li>      
         <li class="nav-item">
           <!-- add a router link to the products page (don't use the a tag!) -->
-          <router-link to="/products" class="nav-link" active-class="active"
-            >Products</router-link
+          <router-link to="/blackjack" class="nav-link" active-class="active"
+            >Play</router-link
           >
         </li>
           <li class="nav-item">

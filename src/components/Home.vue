@@ -24,7 +24,7 @@
         <li>If the dealer goes over 21 you win.</li>
       </ul>
 
-      <router-link to="/play/blackjack" class="nav-link" active-class="active"> Play blackjack </router-link>
+      <router-link to="/blackjack" class="nav-link" active-class="active"> Play blackjack </router-link>
     </div>
   </section>
 </template>
