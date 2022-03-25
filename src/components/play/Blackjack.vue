@@ -1,22 +1,26 @@
 <template>
   <section>
     <div class="container">
-        <button @click="getCard(this.playerHand, 1)" type="button" class="btn btn-primary">
+        <button @click="getCard(this.playerHand)" type="button" class="btn btn-primary">
            HIT
         </button>
  
-       <button @click="getCard(this.computerHand, 1)" type="button" class="btn btn-primary">
+       <button @click="getCard(this.computerHand)" type="button" class="btn btn-primary">
            STAND
         </button>
 
-    <h2 class="mt-3 mt-lg-5">Computer</h2>
+        <button @click="loadCards" type="button" class="btn btn-outline-secondary">
+           Play Again
+        </button>
+
+    <h2 class="mt-3 mt-lg-5">Computer: {{ computerPoints }}</h2>
       <div class="row mt-3">
         <hand
           :hand="computerHand"
         />
       </div>
 
-    <h2 class="mt-3 mt-lg-5">Player</h2>
+    <h2 class="mt-3 mt-lg-5">Player: {{ playerPoints }}</h2>
       <div class="row mt-3">
         <hand
           :hand="playerHand"
@@ -51,6 +55,8 @@ export default {
       deck: [],
       computerHand: [],
       playerHand: [],
+      computerPoints: 0,
+      playerPoints: 0,
     };
   },
   mounted() {
@@ -64,19 +70,28 @@ export default {
       }).then(() => {
         this.computerHand = [];  
         this.playerHand = [];
-        this.getCard(this.computerHand, 1);
-        this.getCard(this.playerHand, 2);
+        this.computerPoints = 0;
+        this.playerPoints = 0;
+        //gives first cards to player and computer
+        setTimeout(() => { this.getCard(this.computerHand); }, 500);
+        setTimeout(() => { this.calculatePoints(this.computerHand, "computer") }, 1300);
+        setTimeout(() => { this.getCard(this.playerHand); }, 1500);
+        setTimeout(() => { this.calculatePoints(this.playerHand, "player") }, 2300);
+        setTimeout(() => { this.getCard(this.playerHand); }, 2500);
+        setTimeout(() => { this.calculatePoints(this.playerHand, "player") }, 3300);
       });
     },
-    getCard(hand, amount){
-        for (let i = 0; i < amount; i++){
-            var card = this.deck[Math.floor(Math.random() * this.deck.length)];
-            hand.push(card);
-            const index = this.deck.indexOf(card);
-            if (index > -1) this.deck.splice(index, 1); 
-        }
+    getCard(hand){
+        var card = this.deck[Math.floor(Math.random() * this.deck.length)];
+        hand.push(card);
+        const index = this.deck.indexOf(card);
+        if (index > -1) this.deck.splice(index, 1); 
     },
-    calculatePoints(){
+    calculatePoints(hand, type){
+        hand.forEach((card) => {
+            if(type == "computer") this.computerPoints += card.number;
+            else this.playerPoints += card.number;
+        });
 
     }
   },
