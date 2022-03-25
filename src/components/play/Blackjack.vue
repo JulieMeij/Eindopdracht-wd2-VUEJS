@@ -1,11 +1,11 @@
 <template>
   <section>
     <div class="container">
-        <button @click="getCard(this.playerHand)" type="button" class="btn btn-primary">
+        <button @click="getCard(this.user.hand)" type="button" class="btn btn-primary">
            HIT
         </button>
  
-       <button @click="getCard(this.computerHand)" type="button" class="btn btn-primary">
+       <button @click="getCard(this.computer.hand)" type="button" class="btn btn-primary">
            STAND
         </button>
 
@@ -13,17 +13,17 @@
            Play Again
         </button>
 
-    <h2 class="mt-3 mt-lg-5">Computer: {{ computerPoints }}</h2>
+    <h2 class="mt-3 mt-lg-5">Computer: {{ computer.points }}</h2>
       <div class="row mt-3">
         <hand
-          :hand="computerHand"
+          :hand="computer.hand"
         />
       </div>
 
-    <h2 class="mt-3 mt-lg-5">Player: {{ playerPoints }}</h2>
+    <h2 class="mt-3 mt-lg-5">You: {{ user.points }}</h2>
       <div class="row mt-3">
         <hand
-          :hand="playerHand"
+          :hand="user.hand"
         />
       </div>  
       
@@ -53,10 +53,14 @@ export default {
   data() {
     return {
       deck: [],
-      computerHand: [],
-      playerHand: [],
-      computerPoints: 0,
-      playerPoints: 0,
+      computer: {
+          hand: [],
+          points: 0,
+      },
+      user: {
+          hand: [],
+          points: 0,
+      },
     };
   },
   mounted() {
@@ -68,31 +72,37 @@ export default {
         console.log(res);
         this.deck = res.data;
       }).then(() => {
-        this.computerHand = [];  
-        this.playerHand = [];
-        this.computerPoints = 0;
-        this.playerPoints = 0;
+        this.computer.hand = [];  
+        this.user.hand = [];
+        this.computer.points = 0;
+        this.user.points = 0;
         //gives first cards to player and computer
-        setTimeout(() => { this.getCard(this.computerHand); }, 500);
-        setTimeout(() => { this.calculatePoints(this.computerHand, "computer") }, 1300);
-        setTimeout(() => { this.getCard(this.playerHand); }, 1500);
-        setTimeout(() => { this.calculatePoints(this.playerHand, "player") }, 2300);
-        setTimeout(() => { this.getCard(this.playerHand); }, 2500);
-        setTimeout(() => { this.calculatePoints(this.playerHand, "player") }, 3300);
+        setTimeout(() => { this.getCard(this.computer); }, 500);
+        setTimeout(() => { this.getCard(this.user); }, 1500);
+        setTimeout(() => { this.getCard(this.user); }, 2500);
       });
     },
-    getCard(hand){
+    getCard(player){
         var card = this.deck[Math.floor(Math.random() * this.deck.length)];
-        hand.push(card);
+        player.hand.push(card);
+        setTimeout(() => { this.addPoints(player, card);  }, 500);
         const index = this.deck.indexOf(card);
         if (index > -1) this.deck.splice(index, 1); 
     },
-    calculatePoints(hand, type){
-        hand.forEach((card) => {
-            if(type == "computer") this.computerPoints += card.number;
-            else this.playerPoints += card.number;
-        });
+    addPoints(player, card){
+        let value = 0;
+        if(card.number == 14) value = 11;
+        else if(card.number > 10) value = 10;
+        else value = card.number;
+        if(player.points > 10 && value == 11) value = 1;
+        player.points += value;
 
+        if(player.points > 21){ 
+            this.setWin();
+        }
+    },
+    setWin(){
+        
     }
   },
 };
