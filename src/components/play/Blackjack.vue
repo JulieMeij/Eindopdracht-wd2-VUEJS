@@ -1,42 +1,59 @@
 <template>
   <section>
-    <div class="container">
-        <button @click="getCard(this.user.hand)" type="button" class="btn btn-primary">
-           HIT
-        </button>
- 
-       <button @click="getCard(this.computer.hand)" type="button" class="btn btn-primary">
-           STAND
-        </button>
+    <div class="bg-secondary container">
+      <button
+        @click="hit"
+        type="button"
+        class="btn btn-primary"
+        :class="{ ingame: endgame }"
+      >
+        HIT
+      </button>
 
-        <button @click="loadCards" type="button" class="btn btn-outline-secondary">
-           Play Again
-        </button>
+      <button
+        @click="stand = true;"
+        type="button"
+        class="btn btn-primary"
+        :class="{ ingame: endgame }"
+      >
+        STAND
+      </button>
 
-    <h2 class="mt-3 mt-lg-5">Computer: {{ computer.points }}</h2>
-      <div class="row mt-3">
-        <hand
-          :hand="computer.hand"
-        />
+      <div :class="{ ingame: !endgame }">
+        <h1>Winner: {{ winner }}</h1>
+        <button
+          @click="loadCards"
+          type="button"
+          class="btn btn-outline-secondary"
+        >
+          Play Again
+        </button>
       </div>
 
-    <h2 class="mt-3 mt-lg-5">You: {{ user.points }}</h2>
-      <div class="row mt-3">
-        <hand
-          :hand="user.hand"
-        />
-      </div>  
-      
-    <h2 class="mt-3 mt-lg-5">Deck</h2>
-      <div class="row mt-3">
+      <h2 class="mt-3 mt-lg-5">Computer: {{ computer.points }}</h2>
+      <div class="row">
+        <div class="col">
+          <hand :hand="computer.hand" />
+        </div>
+      </div>
+
+      <h2 class="mt-3 mt-lg-5">You: {{ user.points }}</h2>
+      <div class="row">
+        <div class="col">
+          <hand :hand="user.hand" />
+        </div>
+      </div>
+
+      <h2 class="mt-3 mt-lg-5">Deck</h2>
+      <div class="row">
         <card
           v-for="card in deck"
           :key="card.id"
           :card="card"
           @update="loadCards"
         />
+      </div>
     </div>
-    </div> 
   </section>
 </template>
 
@@ -54,59 +71,111 @@ export default {
     return {
       deck: [],
       computer: {
-          hand: [],
-          points: 0,
+        hand: [],
+        points: 0,
       },
       user: {
-          hand: [],
-          points: 0,
+        hand: [],
+        points: 0,
       },
+      endgame: false,
+      winner: "",
+      stand: false,
     };
   },
   mounted() {
     this.loadCards();
   },
+  updated() {
+    if(this.player.points > 21){
+      this.setWin();
+    }
+
+    if(this.player.points == 21 && this.stand == false){
+      this.getCard(this.computer);
+    }
+
+    if(this.computer.points < 17 && this.stand == true){
+      this.getCard(this.computer);
+    }
+    
+  },
   methods: {
     loadCards() {
-      axios.get("/cards").then((res) => {
-        console.log(res);
-        this.deck = res.data;
-      }).then(() => {
-        this.computer.hand = [];  
-        this.user.hand = [];
-        this.computer.points = 0;
-        this.user.points = 0;
-        //gives first cards to player and computer
-        setTimeout(() => { this.getCard(this.computer); }, 500);
-        setTimeout(() => { this.getCard(this.user); }, 1500);
-        setTimeout(() => { this.getCard(this.user); }, 2500);
-      });
+      axios
+        .get("/cards")
+        .then((res) => {
+          console.log(res);
+          this.deck = res.data;
+        })
+        .then(() => {
+          this.stand = false;
+          this.winner = "";
+          this.endgame = false;
+          this.computer.hand = [];
+          this.user.hand = [];
+          this.computer.points = 0;
+          this.user.points = 0;
+          //gives first cards to player and computer
+          setTimeout(() => {
+            this.getCard(this.computer);
+          }, 500);
+          setTimeout(() => {
+            this.getCard(this.user);
+          }, 1500);
+          setTimeout(() => {
+            this.getCard(this.user);
+          }, 2500);
+        });
     },
-    getCard(player){
+    hit() {
+      this.getCard(this.user);
+    },
+    getCard(player) {
+      if (!this.endgame) {
         var card = this.deck[Math.floor(Math.random() * this.deck.length)];
         player.hand.push(card);
-        setTimeout(() => { this.addPoints(player, card);  }, 500);
+        setTimeout(() => {
+          this.addPoints(player, card);
+        }, 500);
         const index = this.deck.indexOf(card);
-        if (index > -1) this.deck.splice(index, 1); 
+        if (index > -1) this.deck.splice(index, 1);
+      }
     },
-    addPoints(player, card){
-        let value = 0;
-        if(card.number == 14) value = 11;
-        else if(card.number > 10) value = 10;
-        else value = card.number;
-        if(player.points > 10 && value == 11) value = 1;
-        player.points += value;
+    addPoints(player, card) {
+      let value = 0;
+      if (card.number == 14) value = 11;
+      else if (card.number > 10) value = 10;
+      else value = card.number;
+      if (player.points > 10 && value == 11) value = 1;
+      player.points += value;
 
-        if(player.points > 21){ 
-            this.setWin();
-        }
+      return player.points;
     },
-    setWin(){
-        
-    }
+    setWin() {
+      if (this.computer.points > 21) {
+        this.winner = "computer";
+        this.endgame = true;
+      } else if (this.computer.points == 21 && this.user.points != 21) {
+        this.winner = "computer";
+        this.endgame = true;
+      } else if (this.computer.points < this.user.points) {
+        this.winner = "player";
+        this.endgame = true;
+      } else if (this.computer.points == this.user.points) {
+        this.winner = "tie";
+        this.endgame = true;
+      } else {
+        this.winner = "computer";
+        this.endgame = true;
+      }
+    },
   },
 };
 </script>
 
 <style>
+.ingame {
+  display: none;
+}
 </style>

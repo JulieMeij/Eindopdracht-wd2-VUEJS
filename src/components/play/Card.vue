@@ -1,10 +1,8 @@
 <template>
-  <section>
      <div :class="{ red: card.colour == 'red', black: card.colour == 'black' }" class="playingcard card border border-dark rounded-1 m-2">
         <h2 class="text-center"> {{ card.name }} </h2>
         <h2 class="text-center"> {{ card.type }} </h2>
     </div>
-  </section>
 </template>
 
 <script>

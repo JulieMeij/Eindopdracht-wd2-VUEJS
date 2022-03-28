@@ -1,5 +1,4 @@
 <template>
-  <section>
     <TransitionGroup name="list" tag="card">
       <card
         v-for="card in hand"
@@ -7,7 +6,6 @@
         :card="card"
       />
     </TransitionGroup>
-  </section>
 </template>
 
 <script>
