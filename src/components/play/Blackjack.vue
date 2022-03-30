@@ -87,13 +87,13 @@ export default {
     this.loadCards();
   },
   updated() {
-    if(this.player.points > 21){
-      this.setWin();
-    }
+    //if(this.player.points > 21){
+    //  this.setWin();
+    //}
 
-    if(this.player.points == 21 && this.stand == false){
-      this.getCard(this.computer);
-    }
+    //if(this.player.points == 21 && this.stand == false){
+    //  this.getCard(this.computer);
+    //}
 
     if(this.computer.points < 17 && this.stand == true){
       this.getCard(this.computer);

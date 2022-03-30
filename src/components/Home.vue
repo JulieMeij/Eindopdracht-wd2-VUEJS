@@ -34,7 +34,7 @@ export default {
   name: "Home",
   data() {
     return {
-      loggedUser: "",
+      loggedUser: localStorage.getItem('username'),
     };
   },
 };

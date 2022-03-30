@@ -4,24 +4,33 @@ import axios from '../axios-auth';
 const store = createStore({
     state(){
         return{
-            token: null
+            token: null,
+            loggedUser: null,
+            userType: null
         }
     },
     getters: {
 
     },
     mutations: {
-        updateToken(state, parameters){
+        updateStorage(state, parameters){
             state.token = parameters.token;
+            state.username = parameters.username;
+            state.type = parameters.type;
         }
     },
     actions: {
         autoLogin({commit}){
             let token = localStorage.getItem('token');
+            var username = localStorage.getItem('username');
+            var type = localStorage.getItem('type');
+
             if(token){
                 axios.defaults.headers.common["Authorization"] = "Bearer " + token;
-                commit('updateToken', {
-                    token: token
+                commit('updateStorage', {
+                    token: token,
+                    username: username,
+                    type: type
                 });
             }
         },
@@ -36,9 +45,13 @@ const store = createStore({
                 console.log(res.data);
 
                 localStorage.setItem('token', res.data.token);
+                localStorage.setItem('username', res.data.username);
+                localStorage.setItem('type' , res.data.type);
 
-                commit('updateToken', {
-                    token: res.data.token
+                commit('updateStorage', {
+                    token: res.data.token,
+                    username: res.data.username,
+                    type: res.data.type
                 });
                 resolve();
             })

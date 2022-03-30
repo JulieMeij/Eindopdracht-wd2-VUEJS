@@ -5,20 +5,17 @@
         <li class="nav-item">
           <!-- Add a router link to the homepage (don't use the a tag!) -->
           <router-link to="/" class="nav-link" active-class="active"
-            >Home</router-link
-          >
+            >Home</router-link>
         </li>      
         <li class="nav-item">
           <!-- add a router link to the products page (don't use the a tag!) -->
           <router-link to="/blackjack" class="nav-link" active-class="active"
-            >Play</router-link
-          >
+            >Play</router-link>
         </li>
           <li class="nav-item">
           <!-- add a router link to the products page (don't use the a tag!) -->
           <router-link to="/login" class="nav-link" active-class="active"
-            >Login</router-link
-          >
+            >Login</router-link>
         </li>
       </ul>
     </div>
