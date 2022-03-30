@@ -3,20 +3,32 @@
     <div class="container-fluid">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <!-- Add a router link to the homepage (don't use the a tag!) -->
           <router-link to="/" class="nav-link" active-class="active"
-            >Home</router-link>
-        </li>      
+            >Home</router-link
+          >
+        </li>
         <li class="nav-item">
-          <!-- add a router link to the products page (don't use the a tag!) -->
           <router-link to="/blackjack" class="nav-link" active-class="active"
-            >Play</router-link>
+            >Play</router-link
+          >
         </li>
-          <li class="nav-item">
-          <!-- add a router link to the products page (don't use the a tag!) -->
+        <li class="nav-item">
+          <router-link
+            to="/management"
+            :class="{ dnone: userType != 'admin' }"
+            class="nav-link"
+            active-class="active"
+            >Management</router-link
+          >
+        </li>
+        <li class="nav-item">
           <router-link to="/login" class="nav-link" active-class="active"
-            >Login</router-link>
+            >Login</router-link
+          >
         </li>
+          <router-link to="/login" class="nav-link" active-class="active"
+            >{{userType}}</router-link
+          >
       </ul>
     </div>
   </nav>
@@ -25,6 +37,13 @@
 <script>
 export default {
   name: "Navigation",
+  data() {
+    return {
+      //doet t alleen met refresh dus fixen
+      userType: localStorage.getItem('type'),
+    };
+  },
+
 };
 </script>
 

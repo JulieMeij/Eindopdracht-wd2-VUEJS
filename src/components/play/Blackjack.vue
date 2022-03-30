@@ -5,7 +5,7 @@
         @click="hit"
         type="button"
         class="btn btn-primary"
-        :class="{ ingame: endgame }"
+        :class="{ dnone: endgame }"
       >
         HIT
       </button>
@@ -14,12 +14,12 @@
         @click="stand = true;"
         type="button"
         class="btn btn-primary"
-        :class="{ ingame: endgame }"
+        :class="{ dnone: endgame }"
       >
         STAND
       </button>
 
-      <div :class="{ ingame: !endgame }">
+      <div :class="{ dnone: !endgame }">
         <h1>Winner: {{ winner }}</h1>
         <button
           @click="loadCards"
@@ -175,7 +175,5 @@ export default {
 </script>
 
 <style>
-.ingame {
-  display: none;
-}
+
 </style>
