@@ -6,12 +6,14 @@ import store from './store/store.js'
 import Home from './components/Home.vue';
 import Blackjack from './components/play/Blackjack.vue';
 import Login from './components/Login.vue';
+import UserList from './components/management/UserList.vue';
 
 
 const routes = [
     { path: '/', component: Home },
     { path: '/blackjack', component: Blackjack},
     { path: '/login', component: Login},
+    { path: '/management', component: UserList}
 ];
 
 const router = createRouter({

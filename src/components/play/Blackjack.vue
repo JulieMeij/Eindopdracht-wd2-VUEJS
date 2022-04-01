@@ -1,6 +1,6 @@
 <template>
   <section>
-    <div class="bg-secondary container">
+    <div class="container">
       <button
         @click="hit"
         type="button"

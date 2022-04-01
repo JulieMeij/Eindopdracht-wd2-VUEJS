@@ -13,11 +13,7 @@
           >
         </li>
         <li class="nav-item">
-          <router-link
-            to="/management"
-            :class="{ dnone: userType != 'admin' }"
-            class="nav-link"
-            active-class="active"
+          <router-link to="/management" class="nav-link" active-class="active"
             >Management</router-link
           >
         </li>
@@ -26,9 +22,6 @@
             >Login</router-link
           >
         </li>
-          <router-link to="/login" class="nav-link" active-class="active"
-            >{{userType}}</router-link
-          >
       </ul>
     </div>
   </nav>
@@ -40,10 +33,9 @@ export default {
   data() {
     return {
       //doet t alleen met refresh dus fixen
-      userType: localStorage.getItem('type'),
+      userType: localStorage.getItem("type"),
     };
   },
-
 };
 </script>
 

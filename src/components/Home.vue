@@ -1,5 +1,4 @@
 <template>
-  <section>
     <div class="container">
       <h1 class="py-3">Welcome {{ loggedUser }} </h1>
       <p>On this website you can play blackjack against the computer.</p>
@@ -24,9 +23,8 @@
         <li>If the dealer goes over 21 you win.</li>
       </ul>
 
-      <router-link to="/blackjack" class="nav-link" active-class="active"> Play blackjack </router-link>
+      <router-link to="/blackjack" class="btn btn-outline-light" active-class="active"> Play blackjack </router-link>
     </div>
-  </section>
 </template>
 
 <script>

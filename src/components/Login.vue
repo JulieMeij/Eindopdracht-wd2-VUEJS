@@ -27,7 +27,7 @@
             </button>
           </form>
 
-          <p>If you don't have an account, you can register <router-link to="/register" class="link" active-class="active">here</router-link></p>
+          <p>If you don't have an account, you can register <router-link to="/register" class="link-light" active-class="active">here</router-link></p>
         </div>
       </div>
     </div>
