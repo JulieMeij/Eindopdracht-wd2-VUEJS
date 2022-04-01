@@ -4,6 +4,7 @@
       <div class="row">
         <div class="col-md-6">
           <form>
+            <h2>Login</h2>
             <div class="mb-3">
               <label for="inputUsername" class="form-label">Username</label>
               <input
@@ -22,8 +23,8 @@
                 v-model="password"
               />
             </div>
-            <button type="button" @click="login()" class="btn btn-primary">
-              Submit
+            <button type="button" @click="login()" class="btn btn-outline-light">
+              Login
             </button>
           </form>
 

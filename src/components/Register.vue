@@ -4,6 +4,7 @@
       <div class="row">
         <div class="col-md-6">
           <form>
+            <h2>Register</h2>
             <div class="mb-3">
               <label for="inputUsername" class="form-label">Username</label>
               <input
@@ -22,12 +23,14 @@
                 v-model="password"
               />
             </div>
-            <button type="button" @click="login()" class="btn btn-primary">
-              Submit
+            <button
+              type="button"
+              @click="register()"
+              class="btn btn-outline-light"
+            >
+              Register
             </button>
           </form>
-
-          <p>If you don't have an account, you can register <router-link to="/register" class="link" active-class="active">here</router-link></p>
         </div>
       </div>
     </div>
@@ -35,6 +38,7 @@
 </template>
 
 <script>
+import axios from "../axios-auth";
 export default {
   name: "Login",
   data() {
@@ -44,12 +48,13 @@ export default {
     };
   },
   methods: {
-    login() {
-      this.$store.dispatch("login", {
+    register() {
+      axios.post("users/register", {
         username: this.username,
         password: this.password,
-      })
-      .then(() => {this.$router.push('/');
+      }).then((res) => {
+         console.log(res);
+        this.$router.push('/login');
       }).catch((error) => console.log(error));
     },
   },
