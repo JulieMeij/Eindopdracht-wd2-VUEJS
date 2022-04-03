@@ -1,29 +1,30 @@
 <template>
-  <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
-    <div class="container-fluid">
-      <ul class="navbar-nav me-auto mb-2 mb-md-0">
-        <li class="nav-item">
-          <router-link to="/" class="nav-link" active-class="active"
-            >Home</router-link
-          >
-        </li>
-        <li class="nav-item">
-          <router-link to="/blackjack" class="nav-link" active-class="active"
-            >Play</router-link
-          >
-        </li>
-        <li class="nav-item">
-          <router-link to="/management" class="nav-link" active-class="active"
-            >Management</router-link
-          >
-        </li>
-        <li class="nav-item">
-          <router-link to="/login" class="nav-link" active-class="active"
-            >Login</router-link
-          >
-        </li>
-      </ul>
-    </div>
+  <nav class="navbar navbar-expand-sm navbar-dark nav-color">
+    <div class="container">
+      <a class="navbar-brand fs-1 nav-link" href="#"> &clubs; </a>
+        <ul class="navbar-nav ms-auto align-items-center">
+          <li class="nav-item mx-2 fs-5 fw-bold">
+            <router-link to="/" class="nav-link" active-class="active"
+              >Home</router-link
+            >
+          </li>
+          <li class="nav-item mx-2 fs-5 fw-bold">
+            <router-link to="/blackjack" class="nav-link" active-class="active"
+              >Play</router-link
+            >
+          </li>
+          <li class="nav-item mx-2 fs-5 fw-bold">
+            <router-link to="/management" class="nav-link" active-class="active"
+              >Management</router-link
+            >
+          </li>
+          <li class="nav-item mx-2 fs-5 fw-bold">
+            <router-link to="/login" class="nav-link" active-class="active"
+              >Login</router-link
+            >
+          </li>
+        </ul>
+      </div>
   </nav>
 </template>
 
@@ -40,4 +41,8 @@ export default {
 </script>
 
 <style>
+.nav-color {
+  background-color: #161616;
+}
+
 </style>

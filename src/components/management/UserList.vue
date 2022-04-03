@@ -1,15 +1,22 @@
 <template>
   <section>
-    <div class="container">
+    <div class="container mt-5">
       <h2 class="mt-3 mt-lg-5">Users</h2>
 
-      <div class="row mt-3">
-        <user-list-item
-          v-for="user in users"
-          :key="user.id"
-          :user="user"
-        />
-      </div>
+      <table class="table text-light">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">username</th>
+            <th scope="col">points</th>
+            <th scope="col">type</th>
+            <th scope="col">manage</th>
+          </tr>
+        </thead>
+        <tbody>
+          <user-list-item v-for="user in users" :key="user.id" :user="user" @update="loadUsers" />
+        </tbody>
+      </table>
     </div>
   </section>
 </template>

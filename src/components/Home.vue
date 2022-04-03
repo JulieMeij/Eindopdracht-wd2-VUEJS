@@ -1,5 +1,5 @@
 <template>
-    <div class="container">
+    <div class="container mt-5">
       <h1 class="py-3">Welcome {{ loggedUser }} </h1>
       <p>On this website you can play blackjack against the computer.</p>
       <h2>Rules of blackjack</h2>

@@ -1,19 +1,19 @@
 <template>
   <section>
-    <div class="container">
+    <div class="container mt-5">
       <button
         @click="hit"
         type="button"
-        class="btn btn-primary"
+        class="btn btn-outline-light me-2"
         :class="{ dnone: endgame }"
       >
         HIT
       </button>
 
       <button
-        @click="stand = true;"
+        @click="(stand = true), getCard(this.computer)"
         type="button"
-        class="btn btn-primary"
+        class="btn btn-outline-light"
         :class="{ dnone: endgame }"
       >
         STAND
@@ -44,27 +44,17 @@
         </div>
       </div>
 
-      <h2 class="mt-3 mt-lg-5">Deck</h2>
-      <div class="row">
-        <card
-          v-for="card in deck"
-          :key="card.id"
-          :card="card"
-          @update="loadCards"
-        />
-      </div>
+
     </div>
   </section>
 </template>
 
 <script>
-import Card from "./Card.vue";
 import Hand from "./Hand.vue";
 import axios from "../../axios-auth";
 export default {
   name: "Blackjack",
   components: {
-    Card,
     Hand,
   },
   data() {
@@ -85,20 +75,6 @@ export default {
   },
   mounted() {
     this.loadCards();
-  },
-  updated() {
-    //if(this.player.points > 21){
-    //  this.setWin();
-    //}
-
-    //if(this.player.points == 21 && this.stand == false){
-    //  this.getCard(this.computer);
-    //}
-
-    if(this.computer.points < 17 && this.stand == true){
-      this.getCard(this.computer);
-    }
-    
   },
   methods: {
     loadCards() {
@@ -150,24 +126,45 @@ export default {
       if (player.points > 10 && value == 11) value = 1;
       player.points += value;
 
+      if (player.points >= 21) {
+        this.stand = true;
+      }
+
+      if (this.stand == true && this.computer.points < 17) {
+        setTimeout(() => {
+          this.getCard(this.computer);
+        }, 500);
+      }
+
+      this.setWin();
+
       return player.points;
     },
     setWin() {
-      if (this.computer.points > 21) {
+      if (this.stand == true && this.user.points > 21) {
         this.winner = "computer";
         this.endgame = true;
-      } else if (this.computer.points == 21 && this.user.points != 21) {
-        this.winner = "computer";
-        this.endgame = true;
-      } else if (this.computer.points < this.user.points) {
-        this.winner = "player";
-        this.endgame = true;
-      } else if (this.computer.points == this.user.points) {
-        this.winner = "tie";
-        this.endgame = true;
-      } else {
-        this.winner = "computer";
-        this.endgame = true;
+      }
+      if (this.stand == true && this.computer.points >= 17) {
+        if (this.computer.points == 21 && this.user.points != 21) {
+          this.winner = "computer";
+          this.endgame = true;
+        } else if (this.computer.points != 21 && this.user.points == 21) {
+          this.winner = "you";
+          this.endgame = true;
+        } else if (this.computer.points > 21) {
+          this.winner = "you";
+          this.endgame = true;
+        } else if (this.computer.points < this.user.points) {
+          this.winner = "you";
+          this.endgame = true;
+        } else if (this.computer.points == this.user.points) {
+          this.winner = "tie";
+          this.endgame = true;
+        } else {
+          this.winner = "computer";
+          this.endgame = true;
+        }
       }
     },
   },
@@ -175,5 +172,4 @@ export default {
 </script>
 
 <style>
-
 </style>
