@@ -11,7 +11,7 @@
         >
           HIT
         </button>
-        <p class="d-inline mx-2" :class="{ dnone: hitdisplay }">OR</p>
+        
         <button
           @click="(stand = true), (hitdisplay = true), getCard(this.computer)"
           type="button"
@@ -22,7 +22,7 @@
         </button>
 
         <div :class="{ dnone: !endgame }">
-          <h1>Winner: {{ winner }}</h1>
+          <h2>Winner: {{ winner }}</h2>
           <button
             @click="loadCards"
             type="button"
