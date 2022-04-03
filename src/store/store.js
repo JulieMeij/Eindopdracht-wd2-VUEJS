@@ -5,7 +5,6 @@ const store = createStore({
     state(){
         return{
             token: null,
-            loggedUser: null,
         }
     },
     getters: {
@@ -14,19 +13,16 @@ const store = createStore({
     mutations: {
         updateStorage(state, parameters){
             state.token = parameters.token;
-            state.username = parameters.username;
         }
     },
     actions: {
         autoLogin({commit}){
             let token = localStorage.getItem('token');
-            var username = localStorage.getItem('username');
 
             if(token){
                 axios.defaults.headers.common["Authorization"] = "Bearer " + token;
                 commit('updateStorage', {
                     token: token,
-                    username: username,
                 });
             }
         },
@@ -41,11 +37,9 @@ const store = createStore({
                 console.log(res.data);
 
                 localStorage.setItem('token', res.data.token);
-                localStorage.setItem('username', res.data.username);
 
                 commit('updateStorage', {
                     token: res.data.token,
-                    username: res.data.username,
                 });
                 resolve();
             })

@@ -1,50 +1,46 @@
 <template>
   <section>
     <div class="container mt-5">
-      <button
-        @click="hit"
-        type="button"
-        class="btn btn-outline-light me-2"
-        :class="{ dnone: endgame }"
-      >
-        HIT
-      </button>
-
-      <button
-        @click="(stand = true), getCard(this.computer)"
-        type="button"
-        class="btn btn-outline-light"
-        :class="{ dnone: endgame }"
-      >
-        STAND
-      </button>
-
-      <div :class="{ dnone: !endgame }">
-        <h1>Winner: {{ winner }}</h1>
+      <h1 class="mb-3">Blackjack</h1>
+      <div class="buttonsdiv">
         <button
-          @click="loadCards"
+          @click="hit"
           type="button"
-          class="btn btn-outline-secondary"
+          class="btn btn-outline-light btn-lg me-2"
+          :class="{ dnone: hitdisplay }"
         >
-          Play Again
+          HIT
         </button>
-      </div>
+        <p class="d-inline mx-2" :class="{ dnone: hitdisplay }">OR</p>
+        <button
+          @click="(stand = true), (hitdisplay = true), getCard(this.computer)"
+          type="button"
+          class="btn btn-outline-light btn-lg"
+          :class="{ dnone: hitdisplay }"
+        >
+          STAND
+        </button>
 
+        <div :class="{ dnone: !endgame }">
+          <h1>Winner: {{ winner }}</h1>
+          <button
+            @click="loadCards"
+            type="button"
+            class="btn btn-outline-light btn-lg"
+          >
+            Play Again
+          </button>
+        </div>
+      </div>
       <h2 class="mt-3 mt-lg-5">Computer: {{ computer.points }}</h2>
       <div class="row">
-        <div class="col">
-          <hand :hand="computer.hand" />
-        </div>
+        <hand :hand="computer.hand" />
       </div>
 
       <h2 class="mt-3 mt-lg-5">You: {{ user.points }}</h2>
       <div class="row">
-        <div class="col">
-          <hand :hand="user.hand" />
-        </div>
+        <hand :hand="user.hand" />
       </div>
-
-
     </div>
   </section>
 </template>
@@ -71,6 +67,7 @@ export default {
       endgame: false,
       winner: "",
       stand: false,
+      hitdisplay: true,
     };
   },
   mounted() {
@@ -85,6 +82,7 @@ export default {
           this.deck = res.data;
         })
         .then(() => {
+          this.hitdisplay = true;
           this.stand = false;
           this.winner = "";
           this.endgame = false;
@@ -102,6 +100,9 @@ export default {
           setTimeout(() => {
             this.getCard(this.user);
           }, 2500);
+          setTimeout(() => {
+            this.hitdisplay = false;
+          }, 3500);
         });
     },
     hit() {
@@ -128,6 +129,7 @@ export default {
 
       if (player.points >= 21) {
         this.stand = true;
+        this.hitdisplay = true;
       }
 
       if (this.stand == true && this.computer.points < 17) {
@@ -144,26 +146,33 @@ export default {
       if (this.stand == true && this.user.points > 21) {
         this.winner = "computer";
         this.endgame = true;
+        this.hitdisplay = true;
       }
       if (this.stand == true && this.computer.points >= 17) {
         if (this.computer.points == 21 && this.user.points != 21) {
           this.winner = "computer";
           this.endgame = true;
+          this.hitdisplay = true;
         } else if (this.computer.points != 21 && this.user.points == 21) {
           this.winner = "you";
           this.endgame = true;
+          this.hitdisplay = true;
         } else if (this.computer.points > 21) {
           this.winner = "you";
           this.endgame = true;
+          this.hitdisplay = true;
         } else if (this.computer.points < this.user.points) {
           this.winner = "you";
           this.endgame = true;
+          this.hitdisplay = true;
         } else if (this.computer.points == this.user.points) {
           this.winner = "tie";
           this.endgame = true;
+          this.hitdisplay = true;
         } else {
           this.winner = "computer";
           this.endgame = true;
+          this.hitdisplay = true;
         }
       }
     },
@@ -172,4 +181,7 @@ export default {
 </script>
 
 <style>
+.buttonsdiv {
+  height: 7em;
+}
 </style>

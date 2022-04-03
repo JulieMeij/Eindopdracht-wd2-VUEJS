@@ -1,10 +1,6 @@
 <template>
-    <TransitionGroup name="list" tag="card">
-      <card
-        v-for="card in hand"
-        :key="card.id"
-        :card="card"
-      />
+    <TransitionGroup class="col d-inline" name="card">
+      <card v-for="card in hand" :key="card.id" :card="card" />
     </TransitionGroup>
 </template>
 
@@ -22,12 +18,12 @@ export default {
 </script>
 
 <style>
-.list-enter-active,
-.list-leave-active {
+.card-enter-active,
+.card-leave-active {
   transition: all 0.5s ease;
 }
-.list-enter-from,
-.list-leave-to {
+.card-enter-from,
+.card-leave-to {
   opacity: 0;
   transform: translateX(30px);
 }

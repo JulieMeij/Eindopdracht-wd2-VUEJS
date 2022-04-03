@@ -1,6 +1,6 @@
 <template>
     <div class="container mt-5">
-      <h1 class="py-3">Welcome {{ loggedUser }} </h1>
+      <h1 class="py-3">Welcome</h1>
       <p>On this website you can play blackjack against the computer.</p>
       <h2>Rules of blackjack</h2>
       <p>
@@ -23,18 +23,12 @@
         <li>If the dealer goes over 21 you win.</li>
       </ul>
 
-      <router-link to="/blackjack" class="btn btn-outline-light" active-class="active"> Play blackjack </router-link>
     </div>
 </template>
 
 <script>
 export default {
   name: "Home",
-  data() {
-    return {
-      loggedUser: localStorage.getItem('username'),
-    };
-  },
 };
 </script>
 

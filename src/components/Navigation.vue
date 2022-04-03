@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-sm navbar-dark nav-color">
     <div class="container">
-      <a class="navbar-brand fs-1 nav-link" href="#"> &clubs; </a>
+      <a class="navbar-brand fs-1 nav-link" href="#"> &clubs; &hearts; &spades; &diams; </a>
         <ul class="navbar-nav ms-auto align-items-center">
           <li class="nav-item mx-2 fs-5 fw-bold">
             <router-link to="/" class="nav-link" active-class="active"
