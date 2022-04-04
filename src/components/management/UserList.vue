@@ -2,7 +2,6 @@
   <section>
     <div class="container mt-5">
       <h2 class="mt-3 mt-lg-5">Users</h2>
-
       <table class="table text-light">
         <thead>
           <tr>
@@ -14,7 +13,12 @@
           </tr>
         </thead>
         <tbody>
-          <user-list-item v-for="user in users" :key="user.id" :user="user" @update="loadUsers" />
+          <user-list-item
+            v-for="user in users"
+            :key="user.id"
+            :user="user"
+            @update="loadUsers"
+          />
         </tbody>
       </table>
     </div>
