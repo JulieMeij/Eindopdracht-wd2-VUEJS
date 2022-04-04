@@ -20,22 +20,13 @@
             >Management</router-link
           >
         </li>
-        <li class="nav-item mx-2 fs-5 fw-bold">
+        <li class="nav-item mx-2 fs-5 fw-bold" >
           <router-link
             to="/login"
             class="btn btn-outline-light"
             active-class="active"
             >Login</router-link
           >
-        </li>
-        <li class="nav-item mx-2 fs-5 fw-bold" v-if="isLoggedIn()">
-          <button
-            @click="logout"
-            class="btn btn-outline-light"
-            active-class="active"
-          >
-            Logout
-          </button>
         </li>
       </ul>
     </div>
@@ -45,16 +36,6 @@
 <script>
 export default {
   name: "Navigation",
-  methods: {
-    logout() {
-      localStorage.removeItem("token");
-    },
-    isLoggedIn() {
-      if (typeof localStorage !== "undefined") {
-        return false;
-      } else return true;
-    },
-  },
 };
 </script>
 
