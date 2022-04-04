@@ -11,6 +11,11 @@ export default {
   components: {
     Navigation
   },
+  data() {
+    return {
+
+    }
+  },
   created(){
     this.$store.dispatch('autoLogin');
   }

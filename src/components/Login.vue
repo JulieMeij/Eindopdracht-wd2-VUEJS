@@ -53,10 +53,10 @@ export default {
           password: this.password,
         })
         .then(() => {
-          this.$router.push("/");
+          this.$router.push("/"); 
         })
         .catch((error) => console.log(error));
-        this.$store.commit('LoggedInTrue');
+       
     },
   },
 };

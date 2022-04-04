@@ -15,7 +15,7 @@
             >Play</router-link
           >
         </li>
-        <li class="nav-item mx-2 fs-5 fw-bold" v-if="this.$store.state.loggedIn">
+        <li class="nav-item mx-2 fs-5 fw-bold" v-if="this.$store.state.admin">
           <router-link to="/management" class="nav-link" active-class="active" 
             >Management</router-link
           >
@@ -48,7 +48,7 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem("token");
-      this.$store.commit('LoggedInFalse');
+      this.$store.commit('Logout');
       this.$router.push('/');
     },
   },
