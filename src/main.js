@@ -9,6 +9,7 @@ import Login from './components/Login.vue';
 import Register from './components/Register.vue';
 import UserList from './components/management/UserList.vue';
 import EditUser from './components/management/EditUser.vue';
+import AddUser from './components/management/AddUser.vue';
 
 const routes = [
     { path: '/', component: Home },
@@ -16,7 +17,8 @@ const routes = [
     { path: '/login', component: Login},
     { path: '/register', component: Register},
     { path: '/management', component: UserList},
-    { path: '/edituser/:id', component: EditUser, props: true }
+    { path: '/edituser/:id', component: EditUser, props: true },
+    { path: '/adduser', component: AddUser},
 ];
 
 const router = createRouter({

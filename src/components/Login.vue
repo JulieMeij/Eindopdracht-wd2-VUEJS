@@ -56,6 +56,7 @@ export default {
           this.$router.push("/");
         })
         .catch((error) => console.log(error));
+        this.$store.commit('LoggedInTrue');
     },
   },
 };

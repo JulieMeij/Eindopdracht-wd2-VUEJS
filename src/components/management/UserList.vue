@@ -2,6 +2,9 @@
   <section>
     <div class="container mt-5">
       <h2 class="mt-3 mt-lg-5">Users</h2>
+      <button class="btn btn-success float-end" @click="addUser()">
+        Add +
+      </button>
       <table class="table text-light">
         <thead>
           <tr>
@@ -47,6 +50,9 @@ export default {
         console.log(res);
         this.users = res.data;
       });
+    },
+    addUser() {
+      this.$router.push("/adduser");
     },
   },
 };

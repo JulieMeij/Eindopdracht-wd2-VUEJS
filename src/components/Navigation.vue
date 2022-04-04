@@ -15,18 +15,27 @@
             >Play</router-link
           >
         </li>
-        <li class="nav-item mx-2 fs-5 fw-bold">
-          <router-link to="/management" class="nav-link" active-class="active"
+        <li class="nav-item mx-2 fs-5 fw-bold" v-if="this.$store.state.loggedIn">
+          <router-link to="/management" class="nav-link" active-class="active" 
             >Management</router-link
           >
         </li>
-        <li class="nav-item mx-2 fs-5 fw-bold" >
+        <li class="nav-item mx-2 fs-5 fw-bold" v-if="!this.$store.state.loggedIn">
           <router-link
             to="/login"
             class="btn btn-outline-light"
             active-class="active"
             >Login</router-link
           >
+        </li>
+        <li class="nav-item mx-2 fs-5 fw-bold" v-if="this.$store.state.loggedIn">
+          <button
+            @click="logout"
+            class="btn btn-outline-light"
+            active-class="active"
+          >
+            Logout
+          </button>
         </li>
       </ul>
     </div>
@@ -36,6 +45,13 @@
 <script>
 export default {
   name: "Navigation",
+  methods: {
+    logout() {
+      localStorage.removeItem("token");
+      this.$store.commit('LoggedInFalse');
+      this.$router.push('/');
+    },
+  },
 };
 </script>
 
