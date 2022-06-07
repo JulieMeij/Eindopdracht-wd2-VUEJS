@@ -1,6 +1,7 @@
 {
   "name": "juliesgames",
   "version": "0.1.0",
+  "main": "src/main.js",
   "private": true,
   "engines" : { 
     "node" : "16.x"
