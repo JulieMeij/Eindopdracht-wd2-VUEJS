@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const instance = axios.create( { 
-    baseURL: "http://localhost/",
+    baseURL: "https://cardgames-php.herokuapp.com/",
 });
 
 axios.interceptors.request.use(function (config) {
