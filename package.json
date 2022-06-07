@@ -1,7 +1,11 @@
 {
-  "name": "routing-intro",
+  "name": "juliesgames",
   "version": "0.1.0",
   "private": true,
+  "engines" : { 
+    "npm" : ">=8.1.2",
+    "node" : ">=16.13.2"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
