@@ -2,9 +2,8 @@
   "name": "juliesgames",
   "version": "0.1.0",
   "main": "src/main.js",
-  "engines" : { 
-    "node" : "16.x"
-  },
+  "type": "module",
+
   "scripts": {
     "start": "node src/main.js",
     "serve": "vue-cli-service serve",
@@ -27,23 +26,8 @@
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^7.0.0"
   },
-  "eslintConfig": {
-    "root": true,
-    "env": {
-      "node": true
-    },
-    "extends": [
-      "plugin:vue/vue3-essential",
-      "eslint:recommended"
-    ],
-    "parserOptions": {
-      "parser": "babel-eslint"
-    },
-    "rules": {}
-  },
-  "browserslist": [
-    "> 1%",
-    "last 2 versions",
-    "not dead"
-  ]
+  "engines" : { 
+    "node" : "16.x"
+  }
+  
 }
